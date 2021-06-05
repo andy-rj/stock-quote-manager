@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+   mysql:
+      image: mysql:8
+      environment:
+         MYSQL_ROOT_PASSWORD: "root"
+         MYSQL_DATABASE: "bootdb"
+      ports:
+      - 3306:3306
+      - 33060:33060
+      networks:
+         - default-network
+
+   stock-manager:
+      image: lucasvilela/stock-manager
+      ports:
+      - 8080:8080
+      networks:
+      - default-network
+
+   stock-quote-manager:
+      build:
+         context: ./
+      ports:
+      - 8081:8081
+      networks:
+      - default-network
+
+networks: 
+   default-network:
+      driver: bridge
